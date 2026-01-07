@@ -7,11 +7,10 @@ WARNING
     All the data will be deleted.Proceed with caution and ensure you have backups before 
     running this script
 */
-DROP DATABASE IF EXISTS data_warehouse;
-CREATE DATABASE data_warehouse;
-DROP SCHEMA IF EXISTS bronze;
-DROP SCHEMA IF EXISTS silver;
-DROP SCHEMA IF EXISTS gold;
+
+DROP SCHEMA IF EXISTS bronze CASCADE;
+DROP SCHEMA IF EXISTS silver CASCADE;
+DROP SCHEMA IF EXISTS gold CASCADE;
 
 
 ---Create Schemas
@@ -48,7 +47,7 @@ CREATE TABLE IF NOT EXISTS bronze.crm_prd_info(
     prd_end_dt DATE
 );
 
-CREATE TABLE IF NOT EXISTS bronze.crm_sls_ord_num(
+CREATE TABLE IF NOT EXISTS bronze.crm_sales_details(
     sls_id BIGSERIAL PRIMARY KEY,
     sls_ord_num VARCHAR(50),
     sls_prd_key VARCHAR(50),
@@ -62,20 +61,20 @@ CREATE TABLE IF NOT EXISTS bronze.crm_sls_ord_num(
 );
 
 
-CREATE TABLE IF NOT EXISTS bronze.erp_cust(
+CREATE TABLE IF NOT EXISTS bronze.erp_cust_az1(
     cust_id BIGSERIAL PRIMARY KEY,
     cid VARCHAR(50),
     bdate DATE,
     gen VARCHAR(50)
 );
 
-CREATE TABLE IF NOT EXISTS bronze.erp_loc(
+CREATE TABLE IF NOT EXISTS bronze.erp_loc_a101(
     cust_id BIGSERIAL PRIMARY KEY,
     cid VARCHAR(50),
     cntry VARCHAR(50)
 );
 
-CREATE TABLE IF NOT EXISTS bronze.erp_px_cat(
+CREATE TABLE IF NOT EXISTS bronze.erp_px_cat_g1v2(
     px_id BIGSERIAL PRIMARY KEY,
     ID VARCHAR(50),
     CAT VARCHAR(50),
@@ -89,7 +88,7 @@ Bronze Layer
 --------------
 */
 CREATE TABLE IF NOT EXISTS silver.placeholder(
-
+    id SERIAL PRIMARY KEY
 );
 
 /*
@@ -98,7 +97,7 @@ Bronze Layer
 --------------
 */
 CREATE TABLE IF NOT EXISTS gold.placeholder(
-
+    id SERIAL PRIMARY KEY
 );
 
 

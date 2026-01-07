@@ -71,4 +71,8 @@ These insights empower stakeholders with key business metrics, enabling strategi
 
 This project is licensed under the [MIT License](LICENSE). You are free to use, modify, and share this project with proper attribution.
 
+## Setup Instructions ⚙️
+1. [PostgreSQL Installation and setup](docs/postgreSQL.md)
+2. [pgAdmin 4 server and database setup](docs/pgadmin4.md)
+
 
