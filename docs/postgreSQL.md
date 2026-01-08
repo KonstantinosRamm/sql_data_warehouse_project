@@ -16,7 +16,7 @@ sudo systemctl start postgresql
 sudo systemctl enable postgresql  # starts automatically on boot
 ```
 
-## Connect to postgres server as root
+## Connect to postgres server as postgres
 ```bash
 sudo -i -u postgres
 psql
