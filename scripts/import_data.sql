@@ -2,6 +2,9 @@
 TRUNCATE bronze.crm_cust_info;
 TRUNCATE bronze.crm_prd_info;
 TRUNCATE bronze.crm_sales_details;
+TRUNCATE bronze.erp_cust_az1;
+TRUNCATE bronze.erp_loc_a101;
+TRUNCATE bronze.erp_px_cat_g1v2;
 --Populate tables
 \copy bronze.crm_cust_info FROM 'datasets/source_crm/cust_info.csv' CSV HEADER NULL '';
 \copy bronze.crm_prd_info  FROM 'datasets/source_crm/prd_info.csv' CSV HEADER NULL '';
