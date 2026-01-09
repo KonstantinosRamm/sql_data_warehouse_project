@@ -1,0 +1,5 @@
+1)after installing psql
+2)prwta cd mesa sto project einai poly shmantiko gia na exw access sta script!!!!!
+2)syndesh sto psql apeutheias mesa apo to terminal tou twrinou xrhsth ws postgres. an syndethw sto shell tou postgres tote den tha exw prosbash sta arxeia mo 
+psql -U postgres -d data_warehouse -p 5432 -h localhost
+2)run \i scripts/main.sql
