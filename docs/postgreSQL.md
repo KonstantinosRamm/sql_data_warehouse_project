@@ -26,7 +26,6 @@ psql
 ALTER USER postgres PASSWORD 'Add_Your_Password_here';
 \q
 ```
-# You are now all set.Continue to database [setup](pgadmin4.md) with `pgAdmin 4`
 
 
 

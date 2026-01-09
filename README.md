@@ -31,7 +31,7 @@ This project involves:
 Everything is for Free!
 - **[Datasets](datasets/):** Access to the project dataset (csv files).
 - **[PostgreSQL](https://www.postgresql.org/):** powerful, open source object-relational database system 
-- **[pgAdmin 4](https://www.pgadmin.org/):** GUI for managing and interacting with databases.
+- **[psql](https://www.postgresql.org/docs/current/app-psql.html):** the command-line interface (CLI) for PostgreSQL
 - **[Git Repository](https://github.com/):** Set up a GitHub account and repository to manage, version, and collaborate on your code efficiently.
 - **[DrawIO](https://www.drawio.com/):** Design data architecture, models, flows, and diagrams.
 - **[Notion](https://www.notion.com/):** All-in-one tool for project management and organization.
@@ -73,6 +73,7 @@ This project is licensed under the [MIT License](LICENSE). You are free to use, 
 
 ## Setup Instructions ⚙️
 1. [PostgreSQL Installation and setup](docs/postgreSQL.md)
-2. [pgAdmin 4 server and database setup](docs/pgadmin4.md)
+
+
 
 
