@@ -11,4 +11,4 @@ WARNING
 -- initialize database
 \i scripts/init_db.sql
 -- populate tables
-\i scripts/import_data.sql
+\i scripts/load_data.sql

@@ -37,26 +37,26 @@ CREATE TABLE IF NOT EXISTS bronze.crm_cust_info(
 	cst_lastname VARCHAR(50),
 	cst_marital_status VARCHAR(50),
 	cst_gndr VARCHAR(50),
-	cst_create_date TEXT --store as text and then convert to date
+	cst_create_date TEXT -- intentionally TEXT to handle messy raw dates
 );
 
 CREATE TABLE IF NOT EXISTS bronze.crm_prd_info(
     prd_id INTEGER,
     prd_key VARCHAR(50),
-    prd_name VARCHAR(100),
+    prd_nm VARCHAR(100),
     prd_cost INTEGER,
     prd_line VARCHAR(50),
-    prd_start_dt TEXT, --store as text and then convert to date
-    prd_end_dt TEXT --store as text and then convert to date
+    prd_start_dt TEXT,-- intentionally TEXT to handle messy raw dates
+    prd_end_dt TEXT -- intentionally TEXT to handle messy raw dates
 );
 
 CREATE TABLE IF NOT EXISTS bronze.crm_sales_details(
     sls_ord_num VARCHAR(50),
     sls_prd_key VARCHAR(50),
     sls_cust_id INTEGER,
-    sls_order_dt TEXT, --store as text and then convert to date
-    sls_ship_dt TEXT, --store as text and then convert to date
-    sls_due_dt TEXT, --store as text and then convert to date
+    sls_order_dt TEXT, -- intentionally TEXT to handle messy raw dates
+    sls_ship_dt TEXT, -- intentionally TEXT to handle messy raw dates
+    sls_due_dt TEXT, -- intentionally TEXT to handle messy raw dates
     sls_sales INTEGER,
     sls_quantity INTEGER,
     sls_price INTEGER
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS bronze.crm_sales_details(
 
 CREATE TABLE IF NOT EXISTS bronze.erp_cust_az1(
     cid VARCHAR(50),
-    bdate TEXT, --store as text and then convert to date
+    bdate TEXT, -- intentionally TEXT to handle messy raw dates
     gen VARCHAR(50)
 );
 
