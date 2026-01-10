@@ -46,11 +46,11 @@ BEGIN
         RAISE NOTICE 'Loading erp tables';
         RAISE NOTICE '------------------';
 
-        RAISE NOTICE '>>>Truncating table:erp_cust_az1';
+        RAISE NOTICE '>>>Truncating table:erp_cust_az12';
 
-        TRUNCATE bronze.erp_cust_az1;
-        RAISE NOTICE '>>>Inserting data in table:erp_cust_az1';
-        EXECUTE 'COPY bronze.erp_cust_az1 
+        TRUNCATE bronze.erp_cust_az12;
+        RAISE NOTICE '>>>Inserting data in table:erp_cust_az12';
+        EXECUTE 'COPY bronze.erp_cust_az12
                 FROM ''/var/lib/postgresql/datasets/source_erp/CUST_AZ12.csv'' 
                 CSV HEADER NULL '''';';
 

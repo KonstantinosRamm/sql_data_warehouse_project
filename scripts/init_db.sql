@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS bronze.crm_sales_details(
 );
 
 
-CREATE TABLE IF NOT EXISTS bronze.erp_cust_az1(
+CREATE TABLE IF NOT EXISTS bronze.erp_cust_az12(
     cid VARCHAR(50),
     bdate TEXT, -- intentionally TEXT to handle messy raw dates
     gen VARCHAR(50)
