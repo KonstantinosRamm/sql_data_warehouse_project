@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS bronze.crm_cust_info(
 	cst_lastname VARCHAR(50),
 	cst_marital_status VARCHAR(50),
 	cst_gndr VARCHAR(50),
-	cst_create_date DATE
+	cst_create_date TEXT
 );
 
 CREATE TABLE IF NOT EXISTS bronze.crm_prd_info(
@@ -80,13 +80,6 @@ CREATE TABLE IF NOT EXISTS bronze.erp_px_cat_g1v2(
     SUBCAT VARCHAR(50),
     MAINTENANCE VARCHAR(50)
 );
-
-
-
-
-
-
-
 /*
 =======================================
 Silver Layer
@@ -104,6 +97,7 @@ CREATE TABLE IF NOT EXISTS silver.crm_cust_info(
 
 CREATE TABLE IF NOT EXISTS silver.crm_prd_info(
     prd_id INTEGER,
+    cat_id VARCHAR(50),
     prd_key VARCHAR(50),
     prd_nm VARCHAR(100),
     prd_cost INTEGER,
@@ -127,7 +121,7 @@ CREATE TABLE IF NOT EXISTS silver.crm_sales_details(
 
 CREATE TABLE IF NOT EXISTS silver.erp_cust_az12(
     cid VARCHAR(50),
-    bdate DAte, 
+    bdate DAtE, 
     gen VARCHAR(50)
 );
 
@@ -142,18 +136,7 @@ CREATE TABLE IF NOT EXISTS silver.erp_px_cat_g1v2(
     SUBCAT VARCHAR(50),
     MAINTENANCE VARCHAR(50)
 );
-/*
---------------
-Bronze Layer
---------------
-*/
-CREATE TABLE IF NOT EXISTS gold.placeholder(
-    id SERIAL PRIMARY KEY
-);
 
-
-
---
 
 
 

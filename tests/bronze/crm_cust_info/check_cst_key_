@@ -1,5 +1,0 @@
---Check customer key for spaces 
---Expectation No result
-SELECT cst_key
-FROM bronze.crm_cust_info
-WHERE cst_key LIKE ' ';

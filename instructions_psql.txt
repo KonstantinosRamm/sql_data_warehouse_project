@@ -5,3 +5,4 @@ psql -U postgres -d data_warehouse -p 5432 -h localhost
 4)\i scripts/init_db.sql
 5)\i scripts/load_data.sql
 6)CALL bronze.load_data();
+7)\i scripts/silver_load.sql
