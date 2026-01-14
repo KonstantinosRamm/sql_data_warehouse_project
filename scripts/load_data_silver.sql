@@ -163,3 +163,42 @@ SELECT
     
     END AS sls_price
 FROM bronze.crm_sales_details;
+
+---====================================
+--cleanse and Load silver.erp_cust_az12
+---====================================
+TRUNCATE silver.erp_cust_az12;
+INSERT INTO silver.erp_cust_az12(
+    cid,
+    bdate,
+    gen
+)
+SELECT 
+    -- Remove the 'NAS' prefix from cid so it matches cst_key in crm_cust_info
+    -- Example: NASAW00013174 => AW00013174
+    CASE 
+        WHEN 
+            cid LIKE 'NAS%'
+        THEN SUBSTRING(cid,4)
+    ELSE cid    
+    END AS cid,
+    -- Certain date values exceed the current date
+    --Set those dates to NULL
+    CASE 
+        WHEN 
+            bdate::DATE > CURRENT_DATE 
+        THEN NULL
+    ELSE bdate::DATE
+    END AS bdate,
+    CASE 
+        WHEN 
+            UPPER(TRIM(gen)) LIKE 'M' OR 
+            UPPER(TRIM(gen)) LIKE 'MALE' 
+        THEN 'MALE'
+        WHEN 
+            UPPER(TRIM(gen)) LIKE 'F' OR
+            UPPER(TRIM(gen)) LIKE 'FEMALE'
+        THEN 'FEMALE'
+        ELSE 'N/A'
+    END AS gen
+FROM bronze.erp_cust_az12;
