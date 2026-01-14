@@ -47,10 +47,9 @@ WHERE flag_last = 1;
 
 
 
----=======================
---cleanse
---Load silver.crm_prd_info
----=======================
+---===================================
+--cleanse and Load silver.crm_prd_info
+---===================================
 TRUNCATE silver.crm_prd_info;
 INSERT INTO silver.crm_prd_info( 
     prd_id,
@@ -88,7 +87,79 @@ SELECT
     LEAD(prd_start_dt::DATE) OVER(PARTITION BY prd_key ORDER BY prd_id)-1 AS prd_end_dt
 FROM bronze.crm_prd_info;
 
-/*
+---===================================
+--cleanse and Load silver.crm_prd_info
+---===================================
+TRUNCATE silver.crm_sales_details;
 
-*/
 
+
+
+INSERT INTO silver.crm_sales_details(
+    sls_ord_num,
+    sls_prd_key,
+    sls_cust_id,
+    sls_order_dt,
+    sls_ship_dt,
+    sls_due_dt,
+    sls_sales,
+    sls_quantity,
+    sls_price
+)
+    --In bronze.crm_sales_details, date fields are stored as 
+    --TEXT since the values do not follow a valid date format 
+    --(e.g. 20201005 instead of 2020-10-05).
+    --a transformation is required before applying 
+    --an explicit CAST to a date type.
+    --checks done for sls_order_dt,sls_ship_dt,sls_due_dt
+SELECT
+    sls_ord_num,
+    sls_prd_key,
+    sls_cust_id,
+    CASE 
+        WHEN 
+            sls_order_dt !~ '^\d{8}$' OR
+            sls_order_dt::INT NOT BETWEEN 19000101 AND 20991231    
+        THEN NULL
+        ELSE TO_DATE(sls_order_dt, 'YYYYMMDD') 
+    END AS sls_order_dt,
+
+    CASE 
+        WHEN
+            sls_ship_dt !~ '^\d{8}$' OR
+            sls_ship_dt::INT NOT BETWEEN 19000101 AND 20991231
+        THEN NULL
+        ELSE TO_DATE(sls_ship_dt, 'YYYYMMDD')
+    END AS sls_ship_dt,
+    
+    CASE 
+        WHEN
+            sls_due_dt !~ '^\d{8}$' OR
+            sls_due_dt::INT NOT BETWEEN 19000101 AND 20991231
+        THEN NULL
+        ELSE TO_DATE(sls_due_dt, 'YYYYMMDD')
+    END AS sls_due_dt,
+-- sls_sales is derived from business rules sls_sales = sls_quantity * sls_price; 
+-- if sls_price is < 0 then we use the absolute sls_price 
+-- other wise we use again the same formula as above
+    CASE 
+        WHEN 
+            sls_sales IS NULL OR
+            sls_sales <= 0 OR
+            sls_sales != sls_quantity * ABS(sls_price) 
+        THEN sls_quantity * ABS(sls_price)
+        ELSE sls_sales
+    END AS sls_sales,
+    sls_quantity,
+
+    CASE 
+        WHEN 
+            sls_price IS NULL
+        THEN sls_sales / NULLIF(sls_quantity,0)
+        WHEN 
+            sls_price < 0
+        THEN ABS(sls_price)
+    ELSE sls_price
+    
+    END AS sls_price
+FROM bronze.crm_sales_details;

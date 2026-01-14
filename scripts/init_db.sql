@@ -121,7 +121,7 @@ CREATE TABLE IF NOT EXISTS silver.crm_sales_details(
 
 CREATE TABLE IF NOT EXISTS silver.erp_cust_az12(
     cid VARCHAR(50),
-    bdate DAtE, 
+    bdate DATE, 
     gen VARCHAR(50)
 );
 
