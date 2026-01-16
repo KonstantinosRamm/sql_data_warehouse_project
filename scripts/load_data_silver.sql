@@ -223,3 +223,22 @@ SELECT
     END AS cntry
 
 FROM bronze.erp_loc_a101;
+
+---====================================
+--cleanse and Load silver.erp_loc_a101
+---====================================
+TRUNCATE silver.erp_px_cat_g1v2;
+--No further cleancing required for silver.erp_px_cat_g1v2 since 
+--the raw data on bronze layer  are already clean
+INSERT INTO silver.erp_px_cat_g1v2(
+    id,
+    cat,
+    subcat,
+    maintenance
+)
+SELECT 
+    id,
+    cat,
+    subcat,
+    maintenance
+FROM bronze.erp_px_cat_g1v2;

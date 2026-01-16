@@ -131,10 +131,10 @@ CREATE TABLE IF NOT EXISTS silver.erp_loc_a101(
 );
 
 CREATE TABLE IF NOT EXISTS silver.erp_px_cat_g1v2(
-    ID VARCHAR(50),
-    CAT VARCHAR(50),
-    SUBCAT VARCHAR(50),
-    MAINTENANCE VARCHAR(50)
+    id VARCHAR(50),
+    cat VARCHAR(50),
+    subcat VARCHAR(50),
+    maintenance VARCHAR(50)
 );
 
 
