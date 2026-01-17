@@ -1,7 +1,10 @@
 /*
 
         PROCEDURE TO LOAD bronze layer with raw data from datasets
-
+        This procedure Performs ETL (extranct,Transform,Load) proccess
+        to populate the bronze table
+        -Truncates All bronze Tables
+        -Inserts Raw data in bronze tables
         !!!NOTE!!!
         Running this procedure will drop the entire bronze layer .
         All the data will be deleted.Proceed with caution 
@@ -105,7 +108,10 @@ $$;
 
 /*
         PROCEDURE TO LOAD silver layer with data from bronze layer
-
+        This procedure Performs ETL (extranct,Transform,Load) proccess
+        to populate the silver tables
+        -Truncates All silver Tables
+        -Inserts cleansed data from bronze tables to silver tables
         !!!NOTE!!!
         Running this procedure will drop the entire silver layer .
         All the data will be deleted.Proceed with caution 
@@ -181,6 +187,7 @@ BEGIN
             ) AS flag_last
         FROM bronze.crm_cust_info
     ) ranked
+    --keep only the most recent cst_id since some cst_id are duplicates
     WHERE flag_last = 1;
 
 
@@ -196,7 +203,7 @@ BEGIN
     RAISE NOTICE '>>>Inserting into table:crm_prd_info';
     INSERT INTO silver.crm_prd_info( 
         prd_id,
-        cat_id,
+        cat_id,--Extract category id in order to connect with other tables
         prd_key,
         prd_nm,
         prd_cost,
