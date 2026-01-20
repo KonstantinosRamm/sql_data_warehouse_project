@@ -1,6 +1,7 @@
 
-
+--===========================
 -- customer dimension  table
+--===========================
 CREATE OR REPLACE VIEW gold.dim_customers AS (
 SELECT 
 	ROW_NUMBER() OVER(ORDER BY c_i.cst_id) AS customer_key,
@@ -32,8 +33,11 @@ ON c_i.cst_key =c_l.cid
 );
 
 
-CREATE OR REPLACE VIEW gold.dim_products AS (
+
+--=========================
 --products dimension table
+--=========================
+CREATE OR REPLACE VIEW gold.dim_products AS (
 SELECT 
 	ROW_NUMBER() OVER(ORDER BY s_d.prd_start_dt,s_d.prd_key) AS product_key,
 	s_d.prd_id AS product_id,
@@ -52,6 +56,31 @@ ON p_c.id = s_d.cat_id
 --Filter all products by latest price
 WHERE s_d.prd_end_dt IS NULL
 
+);
+
+
+--==================
+--fact sales table
+--==================
+CREATE OR REPLACE VIEW gold.fact_sales AS (
+SELECT
+		--dimension keys
+		s_d.sls_ord_num AS order_number,
+		prod.product_key AS product_key,
+		cust.customer_key AS customer_key,
+		--dates
+		s_d.sls_order_dt AS order_date,
+		s_d.sls_ship_dt AS shipping_date,
+		s_d.sls_due_dt AS due_date,
+		--Sales
+		s_d.sls_sales AS total_sales,
+		s_d.sls_quantity AS quantity,
+		s_d.sls_price AS unit_price
+FROM silver.crm_sales_details s_d
+LEFT JOIN gold.dim_products prod
+ON s_d.sls_prd_key = prod.product_number
+LEFT JOIN gold.dim_customers cust
+ON s_d.sls_cust_id = cust.customer_id
 );
 
 
