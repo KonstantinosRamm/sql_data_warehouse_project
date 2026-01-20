@@ -1,10 +1,11 @@
 
 
 -- customer dimension  table
-CREATE OR REPLACE VIEW gold.customer_dimension AS (
+CREATE OR REPLACE VIEW gold.dim_customers AS (
 SELECT 
+	ROW_NUMBER() OVER(ORDER BY c_i.cst_id) AS customer_key,
 	c_i.cst_id AS customer_id,
-	c_i.cst_key AS customer_key,
+	c_i.cst_key AS customer_number,
 	c_i.cst_firstname AS firstname,
 	c_i.cst_lastname AS lastname,
 	c_i.cst_marital_status AS marital_status,
@@ -31,23 +32,26 @@ ON c_i.cst_key =c_l.cid
 );
 
 
-CREATE OR REPLACE VIEW gold.product_dimension AS (
+CREATE OR REPLACE VIEW gold.dim_products AS (
 --products dimension table
 SELECT 
+	ROW_NUMBER() OVER(ORDER BY s_d.prd_start_dt,s_d.prd_key) AS product_key,
 	s_d.prd_id AS product_id,
 	s_d.cat_id AS category_id,
-	s_d.prd_key AS product_key,
-	s_d.prd_nm AS product_number,
-	s_d.prd_cost AS product_cost,
+	s_d.prd_key AS product_number,
 	s_d.prd_line AS product_line,
-	s_d.prd_start_dt AS start_date,
-	s_d.prd_end_dt AS end_date,
+	s_d.prd_nm AS product_name,
 	p_c.cat AS category,
 	p_c.subcat AS subcategory,
-	p_c.maintenance AS maintenance
+	p_c.maintenance AS maintenance,
+	s_d.prd_cost AS product_cost,
+	s_d.prd_start_dt AS start_date
 FROM silver.crm_prd_info s_d
 LEFT JOIN silver.erp_px_cat_g1v2 p_c
 ON p_c.id = s_d.cat_id
+--Filter all products by latest price
+WHERE s_d.prd_end_dt IS NULL
+
 );
 
 
