@@ -25,6 +25,16 @@ This project involves:
 
 
 ---
+## 📊 Data Flow & Diagrams
+* The purpose of this section is to provide a visual overview of the data processes, from ingestion to analytics, helping to understand how data moves and transforms across the system.
+1. [Architecture Design](docs/diagrams/Architecture_design.png)
+2. [Layers Design](docs/diagrams/design_layers.png)
+3. [Data Flow](docs/diagrams/data_flow.png)
+4. [Integration_model](docs/diagrams/Integration_model.png)
+5. [Star Schema](docs/diagrams/Data_Warehouse_star.png)
+---
+## Data Dictionary 📖
+* This section documents all tables in the Gold layer, as they represent the business-ready data.For further details check this : [Data Dictionary](docs/dictionary.md)
 
 ## 🛠️ Important Links & Tools:
 
